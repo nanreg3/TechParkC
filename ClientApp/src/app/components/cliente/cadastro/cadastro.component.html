@@ -1,0 +1,124 @@
+<h3 class="text-center">Dados do Cadastro</h3>
+
+<div class="row mt-2">
+
+  <div class="col-md-12 mb-3">
+
+    <b>Cliente:</b>
+
+  </div>
+
+  <div class="col-md-6">
+    <mat-form-field>
+      <input matInput placeholder="Nome" [(ngModel)]="cliente.nome">
+    </mat-form-field>
+    <mat-error *ngIf="cliente.nome == '' && erroForm">Campo obrigatório</mat-error>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input matInput placeholder="Celular" [(ngModel)]="cliente.celular">
+    </mat-form-field>
+    <mat-error *ngIf="cliente.celular == '' && erroForm">Campo obrigatório</mat-error>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <mat-select placeholder="Status" [(ngModel)]="cliente.status">
+        <mat-option value="1">Ativo</mat-option>
+        <mat-option value="0">Não ativo</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>
+
+<hr />
+
+<div class="row">
+
+  <div class="col-md-12 mb-3">
+
+    <b>Veículo:</b>
+
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input matInput placeholder="Placa" [(ngModel)]="cliente.placa">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input matInput placeholder="Cor" [(ngModel)]="cliente.cor">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input matInput placeholder="Modelo" [(ngModel)]="cliente.modelo">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input matInput placeholder="Fabricante" [(ngModel)]="cliente.fabricante">
+    </mat-form-field>
+  </div>
+
+</div>
+
+<hr />
+
+<div class="row">
+
+  <div class="col-md-12 mb-3">
+
+    <b>Pagamento:</b>
+
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerInicio" placeholder="Inicio do Periodo" [(ngModel)]="cliente.inicioPeriodo">
+      <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+      <mat-datepicker #pickerInicio></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input matInput [matDatepicker]="pickerFim" placeholder="Fim do Periodo" [(ngModel)]="cliente.fimPeriodo">
+      <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFim></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input type="number" matInput placeholder="Valor R$" [(ngModel)]="cliente.valor">
+    </mat-form-field>
+  </div>
+
+  <div class="col-md-3">
+    <mat-form-field>
+      <input type="number" matInput placeholder="Avisos" [(ngModel)]="cliente.avisos">
+    </mat-form-field>
+  </div>
+
+</div>
+
+<hr />
+
+<div class="d-flex">
+
+  <div class="ml-auto">
+    <button *ngIf="estadoSalvar == 'put'" mat-raised-button color="warn" (click)="excluir()">Excluir</button>
+  </div>
+
+  <div class="ml-5">
+    <button mat-raised-button (click)="cliente.nome == '' || cliente.celular == '' ? erroForm = true : salvar()">Salvar</button>
+  </div>
+
+</div>

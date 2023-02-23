@@ -1,0 +1,238 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #343541;
+  color: #fff;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 80%;
+}
+
+.mat-elevation-z8 {
+  width: 100%;
+}
+
+.filtroPaginator {
+  width: 100%;
+}
+
+.filtroDiv {
+  width: 100%;
+  background-color: #424242;
+}
+
+.filtro {
+  background-color: #424242;
+  border: none;
+}
+
+.paginator {
+  width: 100%;
+  margin: 0%;
+}
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+:root {
+  scroll-behavior: smooth;
+  --blue-dark: #001E3F;
+  --blue: #157BBF;
+  --blue-light: #6ABBF1;
+  --green-dark: #53E69D;
+  --green: #69F5B0;
+  --green-light: #A4F7CE;
+  --gray-01: #34323E;
+  --gray-02: #4E4B59;
+  --gray-03: #5F5C6B;
+  --gray-04: #7A7786;
+  --gray-05: #8C8A97;
+  --gradient-01: linear-gradient(147.13deg, #001737 6.32%, #2E58C3 124.11%);
+  --gradient-02: linear-gradient(147.13deg, #157BBF 6.32%, #031031 124.11%);
+  --heading-01-font: 'Montserrat', sans-serif;
+  --heading-01-size: 18px;
+  --heading-01-weight: 700;
+  --heading-02: var(--heading-01-font);
+  --heading-02-size: 14px;
+  --heading-02-weight: 600;
+  --body-01-font: 'Titillium Web', sans-serif;
+  --body-01-size: 18px;
+  --body-01-weigth: 600;
+  --body-02-font: var(--body-01-font);
+  --body-02-size: 14px;
+  --body-02-weigth: 500;
+}
+
+/*--------------------------------------------------------------
+  # Main
+  --------------------------------------------------------------*/
+
+.main {
+  /*margin: 60px 0 0 0;*/
+  padding: 20px 30px;
+  transition: all 0.3s;
+}
+
+@media (max-width: 1199px) {
+  .main {
+    padding: 20px;
+  }
+}
+
+/*--------------------------------------------------------------
+  # Header
+  --------------------------------------------------------------*/
+
+.header {
+  /*transition: all 0.5s;*/
+  /*z-index: 997;*/
+  height: 60px;
+  width: 100%;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  /*position: fixed;*/
+  /*top: 0;*/
+  align-items: center;
+  background-color: #202123;
+  padding-left: 20px;
+}
+
+/*--------------------------------------------------------------
+  # Sidebar
+  --------------------------------------------------------------*/
+
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 996;
+  transition: all 0.2s;
+  padding: 20px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #aab7cf transparent;
+  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
+  background-color: #202123;
+}
+
+@media (max-width: 1199px) {
+  .sidebar {
+    left: -300px;
+  }
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #fff;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #aab7cf;
+}
+
+@media (min-width: 1200px) {
+
+  #main,
+  #footer {
+    margin-left: 300px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .toggle-sidebar .sidebar {
+    left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  .toggle-sidebar #main,
+  .toggle-sidebar #footer {
+    margin-left: 0;
+  }
+
+  .toggle-sidebar .sidebar {
+    left: -300px;
+  }
+}
+
+.sidebar-nav {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+  .sidebar-nav li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .sidebar-nav .nav-item {
+    margin-bottom: 5px;
+    background-color: #26282D;
+  }
+
+  .sidebar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    font-size: var(--heading-02-size);
+    font-weight: var(--heading-02-weight);
+    color: #b1b7c3;
+    transition: 0.3;
+    background: #3C3F46;
+    padding: 10px 15px;
+    border-radius: 4px;
+  }
+
+    .sidebar-nav .nav-link.collapsed {
+      color: #b1b7c3;
+      background: #fff;
+    }
+
+
+    .sidebar-nav .nav-link:hover {
+      color: #b1b7c3;
+      background: #35373c;
+    }
+
+@keyframes fa-blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.fa-blink {
+  -webkit-animation: fa-blink .5s linear infinite;
+  -moz-animation: fa-blink .5s linear infinite;
+  -ms-animation: fa-blink .5s linear infinite;
+  -o-animation: fa-blink .5s linear infinite;
+  animation: fa-blink .5s linear infinite;
+}

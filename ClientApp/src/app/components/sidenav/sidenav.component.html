@@ -1,0 +1,25 @@
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <mat-accordion class="" (click)="sidebarToggle()">
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" style="padding: 15px;">
+          <img class="mr-3" src="assets/calendar2-check.svg" /> <span>Avisos de vencimentos</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/lista" style="padding: 15px;">
+        <img class="mr-3" src="assets/listaPessoas.svg" /> <span>Lista de clientes</span>
+          </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/cadastro" style="padding: 15px;">
+          <img class="mr-3" src="../../../assets/person-fill-add.svg" /> <span>Novo cliente</span>
+        </a>
+      </li>
+
+    </mat-accordion>
+  </ul>
+</aside>

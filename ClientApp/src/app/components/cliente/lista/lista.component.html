@@ -1,0 +1,31 @@
+<h3 class="text-center mb-3">Lista de Clientes</h3>
+
+<table mat-table [dataSource]="clientes" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef> Nome </th>
+    <td mat-cell *matCellDef="let element" (click)="rotaDetalhes(element?.id)" style="cursor: pointer;">
+      {{element.nome}}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="vencimento">
+    <th class="text-center" mat-header-cell *matHeaderCellDef> Vencimento </th>
+    <td class="text-center" mat-cell *matCellDef="let element" (click)="rotaDetalhes(element?.id)" style="cursor: pointer;">
+      {{element.fimPeriodo.substring(8,10) + '/' + element.fimPeriodo.substring(5,7)}}
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<div class="d-flex filtroDiv py-2">
+  <img class="filtro px-2" src="../../assets/search.svg" />
+  <input class="filtro" matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquise por aqui...">
+</div>
+
+<div class="d-flex filtroPaginator">
+  <mat-paginator class="paginator" [pageSizeOptions]="[7, 10, 20, 30, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>
