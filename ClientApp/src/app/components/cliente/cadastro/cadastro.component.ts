@@ -44,7 +44,8 @@ export class CadastroComponent implements OnInit {
 
   salvar() {
     !this.cliente.avisos ? this.cliente.avisos = 0 : null;
-    //this.cliente.fimPeriodo = this.fimPeriodo;
+    this.cliente.nome = this.cliente.nome.toUpperCase();
+    this.cliente.placa = this.cliente.placa.toUpperCase();
     this.clienteService[this.estadoSalvar](this.cliente).subscribe(
       (x) => {
         console.log(x);

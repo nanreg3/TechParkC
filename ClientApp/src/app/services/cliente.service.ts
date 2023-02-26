@@ -11,7 +11,7 @@ export class ClienteService {
   ) { }
 
   getClientes() {
-    return this.http.get('api/clientes');
+    return this.http.get('api/clientes/Lista');
   }
 
   getClientesVencidos() {
@@ -35,7 +35,7 @@ export class ClienteService {
   }
 
   put(cliente) {
-    return this.http.post(`api/clientes/Alterar/${cliente.id}`, cliente);
+    return this.http.post(`api/clientes/Alterar`, cliente);
   }
 
   postClientes(clientes) {

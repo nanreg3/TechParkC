@@ -1,51 +1,78 @@
-<h3 class="text-center">Avisos de vencimento:</h3>
+<h4 class="text-center">Avisos de vencimento:</h4>
 
 <div class="row mt-4">
 
-  <div class="col-md-4">
+  <div class="col-md-4 mb-4">
 
-    <h4 class="text-center">Atrasados:</h4>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
 
-    <mat-card class="card mb-2 text-danger" *ngFor="let item of Vencidos">
-      <b class="mb-1" (click)="rotaDetalhes(item?.id)" style="cursor: pointer">{{item?.nome}}</b>
-      Venc.: {{item?.fimPeriodo.substring(8,10) + '/' + item?.fimPeriodo.substring(5,7)}} | Dias em atraso: {{item?.atrasoEmDias}}<br />
-      Placa: {{item?.placa}}<br />
-      <img src="../../../assets/whats.png" class="whats" [ngClass]="{' fa-blink' : item?.avisos == '0' }"
-           (click)="enviarAviso(item?.id, item?.celular, item?.nome, item?.atrasoEmDias)" />
-      <b *ngIf="item?.avisos != '0'" class="aviso">{{item.avisos}}x</b>
-      <img src="../../../assets/coin.svg" class="icon" (click)="pagou(item?.id, item?.nome)" />
-    </mat-card>
+        <mat-panel-title>
+          Atrasados - {{Vencidos.length}}
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+      <mat-card class="card mb-2 text-danger" *ngFor="let item of Vencidos">
+        <b class="mb-1" (click)="rotaDetalhes(item?.id)" style="cursor: pointer">{{item?.nome}}</b>
+        Venc.: {{item?.fimPeriodo.substring(8,10) + '/' + item?.fimPeriodo.substring(5,7)}} | Dias em atraso: {{item?.atrasoEmDias}}<br />
+        Placa: {{item?.placa}}<br />
+        <img src="../../../assets/whats.png" class="whats" [ngClass]="{' fa-blink' : item?.avisos == '0' }"
+             (click)="enviarAviso(item?.id, item?.celular, item?.nome, item?.atrasoEmDias)" />
+        <b *ngIf="item?.avisos != '0'" class="aviso">{{item.avisos}}x</b>
+        <img src="../../../assets/coin.svg" class="icon" (click)="pagou(item?.id, item?.nome)" />
+      </mat-card>
+
+    </mat-expansion-panel>
+
+  </div>
+
+  <div class="col-md-4 mb-4">
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+
+        <mat-panel-title>
+          Vence hoje - {{VenceHoje.length}}
+        </mat-panel-title>
+
+      </mat-expansion-panel-header>
+
+      <mat-card class="card mb-2" *ngFor="let item of VenceHoje">
+        <b class="mb-1" (click)="rotaDetalhes(item?.id)" style="cursor: pointer">{{item?.nome}}</b><br />
+        Placa: {{item?.placa}}<br />
+        <img src="../../../assets/whats.png" class="whats" [ngClass]="{' fa-blink' : item?.avisos == '0' }"
+             (click)="enviarAviso(item?.id, item?.celular, item?.nome, 0, true)" />
+        <b *ngIf="item?.avisos != '0'" class="aviso">{{item?.avisos}}x</b>
+        <img src="../../../assets/coin.svg" class="icon" (click)="pagou(item?.id, item?.nome)" />
+      </mat-card>
+
+    </mat-expansion-panel>
 
   </div>
 
   <div class="col-md-4">
 
-    <h4 class="text-center">Hoje:</h4>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
 
-    <mat-card class="card mb-2" *ngFor="let item of VenceHoje">
-      <b class="mb-1" (click)="rotaDetalhes(item?.id)" style="cursor: pointer">{{item?.nome}}</b><br />
-      Placa: {{item?.placa}}<br />
-      <img src="../../../assets/whats.png" class="whats" [ngClass]="{' fa-blink' : item?.avisos == '0' }"
-           (click)="enviarAviso(item?.id, item?.celular, item?.nome, 0, true)" />
-      <b *ngIf="item?.avisos != '0'" class="aviso">{{item?.avisos}}x</b>
-      <img src="../../../assets/coin.svg" class="icon" (click)="pagou(item?.id, item?.nome)" />
-    </mat-card>
+        <mat-panel-title>
+          Próximos - {{Proximos.length}}
+        </mat-panel-title>
 
-  </div>
+      </mat-expansion-panel-header>
 
-  <div class="col-md-4">
+      <mat-card class="card mb-2 d-flex text-primary" *ngFor="let item of Proximos">
+        <b class="mb-1" (click)="rotaDetalhes(item?.id)" style="cursor: pointer">{{item?.nome}}</b>
+        Venc.: {{item?.fimPeriodo.substring(8,10) + '/' + item?.fimPeriodo.substring(5,7)}} | Dias restantes: {{item?.diasRestantes}}<br />
+        Placa: {{item?.placa}}<br />
+        <img src="../../../assets/whats.png" class="whats" [ngClass]="{' fa-blink' : item?.avisos == '0' }"
+             (click)="enviarAviso(item?.id, item?.celular, item?.nome, 0, false, item?.diasRestantes )" />
+        <b *ngIf="item?.avisos != '0'" class="aviso">{{item?.avisos}}x</b>
+        <img src="../../../assets/coin.svg" class="icon" (click)="pagou(item?.id, item?.nome)" />
+      </mat-card>
 
-    <h4 class="text-center">Próximos:</h4>
-
-    <mat-card class="card mb-2 d-flex text-primary" *ngFor="let item of Proximos">
-      <b class="mb-1" (click)="rotaDetalhes(item?.id)" style="cursor: pointer">{{item?.nome}}</b>
-      Venc.: {{item?.fimPeriodo.substring(8,10) + '/' + item?.fimPeriodo.substring(5,7)}} | Dias restantes: {{item?.diasRestantes}}<br />
-      Placa: {{item?.placa}}<br />
-      <img src="../../../assets/whats.png" class="whats" [ngClass]="{' fa-blink' : item?.avisos == '0' }"
-           (click)="enviarAviso(item?.id, item?.celular, item?.nome, 0, false, item?.diasRestantes )" />
-      <b *ngIf="item?.avisos != '0'" class="aviso">{{item?.avisos}}x</b>
-      <img src="../../../assets/coin.svg" class="icon" (click)="pagou(item?.id, item?.nome)" />
-    </mat-card>
+    </mat-expansion-panel>
 
   </div>
 

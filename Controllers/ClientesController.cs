@@ -18,6 +18,32 @@ namespace TechParkC.Controllers
             appSettings = options.Value;
         }
 
+        [HttpGet("Lista")]
+        public List<Cliente> GetListaOrdenada()
+        {
+            string path = appSettings.diretorioDados;
+
+            List<Cliente> clientes = new();
+            using (FileStream fs = new(path, FileMode.Open))
+            {
+                using (StreamReader sr = new(fs))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        var linha = sr.ReadLine();
+
+                        var cliente = formatarStringParaCliente(linha);
+
+                        clientes.Add(cliente);
+                    }
+
+                    return clientes
+                        .OrderBy(x => x.Nome)
+                        .ToList();
+                }
+            };
+        }
+
         [HttpGet]
         public List<Cliente> Get()
         {
@@ -37,7 +63,7 @@ namespace TechParkC.Controllers
                         clientes.Add(cliente);
                     }
 
-                    return clientes.OrderBy(x => x.Nome).ToList();
+                    return clientes.ToList();
                 }
             };
         }
@@ -51,7 +77,7 @@ namespace TechParkC.Controllers
                 .Where(
                 c => c.FimPeriodo?.Date < DateTime.Now.Date
                 && c.Status == "1")
-                .OrderBy(c => c.FimPeriodo)
+                .OrderBy(c => c.Avisos)
                 .ToList();
 
             return clientes;
@@ -66,6 +92,7 @@ namespace TechParkC.Controllers
                 .Where(
                 c => c.FimPeriodo?.Date == DateTime.Now.Date
                 && c.Status == "1")
+                .OrderBy(c => c.Avisos)
                 .ToList();
 
             return clientes;
@@ -84,7 +111,7 @@ namespace TechParkC.Controllers
                 && c.FimPeriodo?.Date > DateTime.Now.Date
                 && c.Status == "1"
                 )
-                .OrderBy(c => c.FimPeriodo)
+                .OrderBy(c => c.Avisos)
                 .ToList();
 
             return clientes;
@@ -109,6 +136,8 @@ namespace TechParkC.Controllers
         {
             string path = appSettings.diretorioDados;
 
+            cliente.ID = Get().Count() + 1;
+
             string novaLinha = formatarClienteParaString(cliente);
 
             using (FileStream fs = new FileStream(path, FileMode.Append))
@@ -130,10 +159,12 @@ namespace TechParkC.Controllers
             try
             {
                 List<string> novasLinhas = new();
-
+                var i = 1;
                 foreach (Cliente cliente in clientes)
                 {
+                    cliente.ID = i;
                     novasLinhas.Add(formatarClienteParaString(cliente));
+                    i++;
                 }
 
                 using (FileStream fs = new FileStream(path, FileMode.Append))
@@ -155,16 +186,12 @@ namespace TechParkC.Controllers
             }
         }
 
-        [HttpPost("Alterar/{id}")]
-        public string Alterar(int id, [FromBody] Cliente cliente)
+        [HttpPost("Alterar")]
+        public string Alterar([FromBody] Cliente cliente)
         {
             if (cliente == null)
             {
                 return "Erro : As informações do cliente informado são nulas";
-            }
-            if (cliente.ID != id)
-            {
-                return "Erro : Cliente não encontrado, verifique os id's informados.";
             }
 
             try
@@ -181,7 +208,7 @@ namespace TechParkC.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{Id}")]
         public string Delete(int Id)
         {
             try
@@ -193,7 +220,9 @@ namespace TechParkC.Controllers
                 foreach (Cliente item in clientes)
                 {
                     if (item.ID != Id)
+                    {
                         ClientesRestantes.Add(item);
+                    }
                 }
 
                 DeleteAll();
@@ -231,29 +260,22 @@ namespace TechParkC.Controllers
 
         public string formatarClienteParaString(Cliente cliente)
         {
-            int novoId = Get().Count + 1;
-
-            if (cliente.ID < 1)
-            {
-                cliente.ID = novoId;
-            }
-
             return
-                cliente.ID
-                + ";" + cliente.Nome
-                + ";" + cliente.Celular
-                + ";" + cliente.Status
+            cliente.ID
+            + ";" + cliente.Nome
+            + ";" + cliente.Celular
+            + ";" + cliente.Status
 
-                + ";" + cliente.Placa
-                + ";" + cliente.Cor
-                + ";" + cliente.Modelo
-                + ";" + cliente.Fabricante
+            + ";" + cliente.Placa
+            + ";" + cliente.Cor
+            + ";" + cliente.Modelo
+            + ";" + cliente.Fabricante
 
-                + ";" + cliente.Valor
-                + ";" + cliente.InicioPeriodo
-                + ";" + cliente.FimPeriodo
-                + ";" + cliente.Avisos
-                ;
+            + ";" + cliente.Valor
+            + ";" + cliente.InicioPeriodo
+            + ";" + cliente.FimPeriodo
+            + ";" + cliente.Avisos
+            ;
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]

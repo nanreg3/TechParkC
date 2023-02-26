@@ -21,6 +21,7 @@ export class AvisoComponent implements OnInit {
   VenceHoje: Cliente[] = [];
   Proximos: Cliente[] = [];
   public pix = "";
+  panelOpenState = false;
 
   ngOnInit() {
     this.getVencidos();
